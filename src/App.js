@@ -1,6 +1,7 @@
 import { Component } from "react";
 import productData from "./data/productData";
 import formatAPrice from "./helpers/formatPrice";
+import Form from "./components/Form";
 import "./App.css";
 
 class App extends Component {
@@ -12,12 +13,6 @@ class App extends Component {
       subtotal: 0,
       tax: 0,
       total: 0,
-
-      firstName: "",
-      lastName: "",
-      email: "",
-      creditCard: "",
-      zipCode: "",
     }
   }
 
@@ -37,14 +32,10 @@ class App extends Component {
     })
   }
 
-  handleUserInput = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    })
-  }
 
-  handleSubmitForm = (e) => {
-    let {firstName, lastName, email, creditCard, zipCode, total} = this.state;
+  handleSubmitForm = (e, firstName, lastName, email, creditCard, zipCode) => {
+    //let {firstName, lastName, email, creditCard, zipCode, total} = this.state;
+    let {total} = this.state;
     e.preventDefault();
     if(firstName === "" || lastName === "" || email === "") {
       alert("Input is not valid");
@@ -68,8 +59,8 @@ class App extends Component {
   }
 
   render() {
-    let {subtotal, tax, total, firstName, lastName, email, creditCard, zipCode} = this.state;
-
+    //let {subtotal, tax, total, firstName, lastName, email, creditCard, zipCode} = this.state;
+    let {subtotal, tax, total} = this.state;
     let displayProduct = this.state.data.map((product) => {
       return (
         <div className="product-display">
@@ -101,29 +92,7 @@ class App extends Component {
           </section>
           <section className="checkout-form">
             <h2>Checkout</h2>
-            <form onSubmit={this.handleSubmitForm} id="checkout">
-              <label htmlFor="firstName">First Name</label>
-              <br />
-              <input type="text" onInput={this.handleUserInput} value={firstName} name="firstName" id="firstName" />
-              <br />
-              <label htmlFor="lastName">Last Name</label>
-              <br />
-              <input type="text" onInput={this.handleUserInput} value={lastName} name="lastName" id="lastName" />
-              <br />
-              <label htmlFor="email">Email</label>
-              <br />
-              <input type="email" onInput={this.handleUserInput} value={email} name="email" id="email" />
-              <br />
-              <label htmlFor="creditCard" >Credit Card</label>
-              <br />
-              <input type="text" onInput={this.handleUserInput} value={creditCard} name="creditCard" id="creditCard" />
-              <br />
-              <label htmlFor="zipCode">Zip Code</label>
-              <br />
-              <input type="text" onInput={this.handleUserInput} value={zipCode} name="zipCode" id="zipCode" />
-              <br />
-              <button type="submit">Buy Now</button>
-            </form>
+            <Form handleSubmitForm={this.handleSubmitForm} />
           </section>
         </div>
       </div>
