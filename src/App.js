@@ -32,9 +32,7 @@ class App extends Component {
     })
   }
 
-
   handleSubmitForm = (e, firstName, lastName, email, creditCard, zipCode) => {
-    //let {firstName, lastName, email, creditCard, zipCode, total} = this.state;
     let {total} = this.state;
     e.preventDefault();
     if(firstName === "" || lastName === "" || email === "") {
@@ -51,16 +49,9 @@ class App extends Component {
     }
   }
 
-  displayTax = () => {
-    let totalTax = this.calculateTax(this.state.subtotal);
-    this.setState({
-      tax: totalTax
-    })
-  }
-
   render() {
-    //let {subtotal, tax, total, firstName, lastName, email, creditCard, zipCode} = this.state;
     let {subtotal, tax, total} = this.state;
+    
     let displayProduct = this.state.data.map((product) => {
       return (
         <div className="product-display">
@@ -99,6 +90,5 @@ class App extends Component {
     )
   }
 }
-
 
 export default App;
